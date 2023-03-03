@@ -9,7 +9,12 @@ class GA:
                  , boundaries: list
                  , scoring
                  , x_train, y_train
-                 , k: int = 5, stratified: bool = False):
+                 , k: int = 5, stratified: bool = False
+                 , verbosity: int = 1
+                 , show_progress_plot: bool = False
+                 , return_model:bool = False
+                 , save_model: bool = True
+                 , save_location: str = ""):
         self.generation = 0
         self.gp = ga_parameters
         self.model_func = model_func
@@ -22,6 +27,8 @@ class GA:
         self.y_t = y_train
         self.k = k
         self.stratified = stratified
+        self.verbosity = verbosity
+        self.show_progress_plot
 
     def loss(self, params):
         model = self.model_func(**params)
