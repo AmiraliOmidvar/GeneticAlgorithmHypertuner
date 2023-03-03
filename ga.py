@@ -1,20 +1,27 @@
 import random
 import numpy as np
 from sklearn.model_selection import KFold, cross_validate
+import sys
 
 
 class GA:
     def __init__(self, ga_parameters: dict, model_func
                  , model_parameters: dict
                  , boundaries: list
-                 , scoring
                  , x_train, y_train
+                 , scoring
+                 , stop_criteria: bool = False, stop_value: int = None
                  , k: int = 5, stratified: bool = False
                  , verbosity: int = 1
                  , show_progress_plot: bool = False
-                 , return_model:bool = False
+                 , return_model: bool = False
                  , save_model: bool = True
-                 , save_location: str = ""):
+                 , save_location: str = "tuned_model.pickle"):
+
+        if stop_criteria:
+            if stop_value is None:
+                pass
+                # TODO raise error
         self.generation = 0
         self.gp = ga_parameters
         self.model_func = model_func
@@ -25,10 +32,18 @@ class GA:
         self.b = boundaries
         self.x_t = x_train
         self.y_t = y_train
+        self.stop_criteria = stop_criteria
+        self.stop_value = stop_value
         self.k = k
         self.stratified = stratified
         self.verbosity = verbosity
-        self.show_progress_plot
+        self.show_progress_plot = show_progress_plot
+        self.return_model = return_model
+        self.save_model = save_model
+        self.save_location = save_location
+        self.max_losses = []
+        self.min_losses = []
+        self.mean_losses = []
 
     def loss(self, params):
         model = self.model_func(**params)
@@ -81,6 +96,8 @@ class GA:
                     x = self.b[j][0]
                 trial_params[p] = x
             vectors[i] = self.recombination(parent, trial_params)
+            if self.verbosity >= 1:
+                self.progress(i + 1, self.gp["pop_size"])
         return vectors
 
     def recombination(self, parent, trial_params):
@@ -108,28 +125,39 @@ class GA:
 
     def stop(self, losses):
         if self.gp["direction"] == "max":
-            if max(losses) > self.gp["stop_value"]:
+            if max(losses) > self.stop_value:
                 return True
         if self.gp["direction"] == "min":
-            if max(losses) < self.gp["stop_value"]:
+            if max(losses) < self.stop_value:
                 return True
 
         return False
 
+    def reporting(self, losses):
+        if self.verbosity >= 1:
+            self.verbose1(losses, self.s)
+        if self.verbosity >= 2:
+            self.verbose2(vectors)
+        if self.verbosity >= 3:
+            self.verbose2(vectors)
+        if self.generation > 1 and self.show_progress_plot:
+            progress_band(self.max_losses, self.min_losses, self.mean_losses, self.s)
+
     def tune(self):
-        i = 0
         vectors = self.initiation()
-        while i < self.gp["gmax"]:
+        while self.generation < self.gp["gmax"]:
+            print("\nGeneration " + str(self.generation))
             losses = np.zeros(self.gp["pop_size"])
-            i += 1
+            self.generation += 1
             vectors = self.mutation(vectors)
             for j in range(len(vectors)):
                 losses[j] = vectors[j]['loss']
-            print(vectors)
-            print("\n")
-            print(max(losses), losses.mean())
-            print("\n")
-            print("\n")
-            if self.stop(losses):
-                break
+
+            self.max_losses.append(max(losses))
+            self.min_losses.append(min(losses))
+            self.mean_losses.append(losses.mean())
+            self.reporting(losses)
+            if self.stop_criteria:
+                if self.stop(losses):
+                    break
         return vectors
