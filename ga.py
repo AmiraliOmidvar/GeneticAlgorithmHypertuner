@@ -13,10 +13,7 @@ class GA:
                  , stop_criteria: bool = False, stop_value: int = None
                  , k: int = 5, stratified: bool = False
                  , verbosity: int = 1
-                 , show_progress_plot: bool = False
-                 , return_model: bool = False
-                 , save_model: bool = True
-                 , save_location: str = "tuned_model.pickle"):
+                 , show_progress_plot: bool = False):
 
         if stop_criteria:
             if stop_value is None:
@@ -44,6 +41,7 @@ class GA:
         self.max_losses = []
         self.min_losses = []
         self.mean_losses = []
+        self.best_params = []
 
     def loss(self, params):
         model = self.model_func(**params)
@@ -135,11 +133,11 @@ class GA:
 
     def reporting(self, losses):
         if self.verbosity >= 1:
-            self.verbose1(losses, self.s)
+            self.verbose1(losses, self.s, self.best_params)
         if self.verbosity >= 2:
             self.verbose2(vectors)
         if self.verbosity >= 3:
-            self.verbose2(vectors)
+            self.verbose3(vectors, self.s)
         if self.generation > 1 and self.show_progress_plot:
             progress_band(self.max_losses, self.min_losses, self.mean_losses, self.s)
 
@@ -152,6 +150,11 @@ class GA:
             vectors = self.mutation(vectors)
             for j in range(len(vectors)):
                 losses[j] = vectors[j]['loss']
+
+            if self.gp["direction"] == "max":
+                self.best_params = vectors[list(losses).index(max(losses))]["params"]
+            if self.gp["direction"] == "min":
+                self.best_params = vectors[list(losses).index(min(losses))]["params"]
 
             self.max_losses.append(max(losses))
             self.min_losses.append(min(losses))
