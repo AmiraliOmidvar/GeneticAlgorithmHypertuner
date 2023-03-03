@@ -36,9 +36,6 @@ class GA:
         self.verbosity = verbosity
         self.show_progress_plot = show_progress_plot
         self.return_model = return_model
-        self.save_model = save_model
-        self.save_location = save_location
-        self.max_losses = []
         self.min_losses = []
         self.mean_losses = []
         self.best_params = []
@@ -58,7 +55,7 @@ class GA:
                 p = self.mp[j]
                 pi = self.mpi[j]
                 if pi[0] is None:
-                    bound = self.b[j]
+                    bound = self.b[p]
                     if pi[1] == int:
                         x = int(random.randint(bound[0], bound[1]))
                     if pi[1] == float:
@@ -88,10 +85,10 @@ class GA:
                 if self.mpi[j][1] == float:
                     x = chosen[0][p] + self.gp["fscale"] * (chosen[1][p] - chosen[2][p])
 
-                if x > self.b[j][1]:
-                    x = self.b[j][1]
-                if x < self.b[j][0]:
-                    x = self.b[j][0]
+                if x > self.b[p][1]:
+                    x = self.b[p][1]
+                if x < self.b[p][0]:
+                    x = self.b[p][0]
                 trial_params[p] = x
             vectors[i] = self.recombination(parent, trial_params)
             if self.verbosity >= 1:
@@ -141,7 +138,7 @@ class GA:
         if self.generation > 1 and self.show_progress_plot:
             progress_band(self.max_losses, self.min_losses, self.mean_losses, self.s)
 
-    def tune(self):
+    def main(self):
         vectors = self.initiation()
         while self.generation < self.gp["gmax"]:
             print("\nGeneration " + str(self.generation))
