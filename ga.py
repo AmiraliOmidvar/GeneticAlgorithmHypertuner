@@ -7,7 +7,7 @@ import sys
 class GA:
     def __init__(self, ga_parameters: dict, model_func
                  , model_parameters: dict
-                 , boundaries: list
+                 , boundaries: dict
                  , x_train, y_train
                  , scoring
                  , stop_criteria: bool = False, stop_value: int = None
