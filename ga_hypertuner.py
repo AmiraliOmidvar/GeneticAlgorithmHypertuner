@@ -1,19 +1,22 @@
 import numpy as np
 from exceptions import GaParamsException, MParamsException, GaHypertunerParamException
+from ga import GA
 
 
 class GaHypertuner:
     default_ga_parameters = {"pop_size": 20, "fscale": 0.5, "gmax": 50, "direction": "min",
                              "cp": 0.5}
+    best_params = None
 
     def tune(self, ga_parameters: dict, model, model_parameters: dict
-                 , boundaries: dict
-                 , x_train, y_train
-                 , scoring
-                 , stop_value: int = None
-                 , stratified: bool = False
-                 , verbosity: int = 1
-                 , show_progress_plot: bool = False):
+             , boundaries: dict
+             , x_train, y_train
+             , scoring
+             , stop_value: int = None
+             , stratified: bool = False
+             , k: int = 5
+             , verbosity: int = 1
+             , show_progress_plot: bool = False):
 
         v_list = [verbosity]
         stop_criteria = False
@@ -25,6 +28,14 @@ class GaHypertuner:
         verbosity = v_list[0]
         if stop_value is not None:
             stop_criteria = True
+
+        ga = GA(ga_parameters, model, model_parameters
+                , boundaries, x_train, y_train
+                , scoring, stop_criteria=stop_criteria
+                , stop_value=stop_value, stratified=stratified
+                , k=k, verbosity=verbosity, show_progress_plot=show_progress_plot)
+
+        return ga.main()
 
     @staticmethod
     def _check_ga_params(ga_parameters):
@@ -82,17 +93,9 @@ class GaHypertuner:
         if type(stratified) != bool:
             raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "stratified", "bool")
         if type(show_progress_plot) != bool:
-            raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "show_progress_plot", "bool")
+            raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "show_progress_plot",
+                                             "bool")
 
         if verbosity[0] not in [0, 1, 2, 3]:
             verbosity[0] = 1
             GaHypertunerParamException.warning(GaHypertunerParamException.VERBOSITY_WARNING)
-
-
-
-ga_hypertuner = GaHypertuner()
-mp = {"eta": [1.0, float], "min_child_weight": [None, float], "colsample_bytree": [None, float],
-      "n_estimators": [None, int], "alpha": [None, float], "gamma": [None, float]}
-b = {"eta": [0, 1], "min_child_weight": [0, 5], "colsample_bytree": [0, 1],
-      "n_estimators": [100, 1000], "alpha": [0,1], "gamma": [0, 1]}
-ga_hypertuner.tune(GaHypertuner.default_ga_parameters, mp, b, stop_value=2, verbosity=5)
