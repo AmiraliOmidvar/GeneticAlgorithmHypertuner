@@ -67,11 +67,8 @@ class GA:
     def mutation(self, vectors):
         for i in range(self.gp["pop_size"]):
             parent = vectors[i]
-            chosen = []
-            while len(chosen) != 3:
-                buffer = random.randint(0, self.gp["pop_size"] - 1)
-                if buffer not in chosen and i != buffer:
-                    chosen.append(vectors[buffer]["params"])
+            range_values = [x for x in range(0, self.gp["pop_size"] - 1) if x != i]
+            chosen = list(random.sample(range_values, k=3))
             trial_params = {}
             for j in range(self.dim):
                 p = self.mp[j]
