@@ -31,7 +31,6 @@ class GA:
         self.stratified = stratified
         self.verbosity = verbosity
         self.show_progress_plot = show_progress_plot
-        self.return_model = return_model
         self.min_scores = []
         self.mean_scores = []
         self.best_params = []

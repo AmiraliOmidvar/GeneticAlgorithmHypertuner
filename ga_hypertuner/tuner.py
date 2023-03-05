@@ -1,6 +1,6 @@
 import numpy as np
-from exceptions import GaParamsException, MParamsException, GaHypertunerParamException
-from ga import GA
+from ga_hypertuner.exceptions import GaParamsException, MParamsException, GaHypertunerParamException
+from ga_hypertuner.ga import GA
 
 
 class GaHypertuner:
