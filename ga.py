@@ -5,7 +5,7 @@ import sys
 
 
 class GA:
-    def __init__(self, ga_parameters: dict, model_func
+    def __init__(self, ga_parameters: dict, model_class
                  , model_parameters: dict
                  , boundaries: dict
                  , x_train, y_train
@@ -15,13 +15,9 @@ class GA:
                  , verbosity: int = 1
                  , show_progress_plot: bool = False):
 
-        if stop_criteria:
-            if stop_value is None:
-                pass
-                # TODO raise error
         self.generation = 0
         self.gp = ga_parameters
-        self.model_func = model_func
+        self.model_class = model_class
         self.mpi = list(model_parameters.values())
         self.mp = list(model_parameters.keys())
         self.dim = len(model_parameters)
@@ -41,7 +37,7 @@ class GA:
         self.best_params = []
 
     def score(self, params):
-        model = self.model_func(**params)
+        model = self.model_class(**params)
         kf = KFold(n_splits=self.k, shuffle=True)
         score = cross_validate(model, self.x_t, self.y_t, cv=kf, scoring=self.s, return_train_score=False)["test_score"]
         return score.mean()
@@ -160,4 +156,4 @@ class GA:
             if self.stop_criteria:
                 if self.stop(scores):
                     break
-        return vectors
+        return self.best_params

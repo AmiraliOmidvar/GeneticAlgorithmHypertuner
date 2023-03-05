@@ -1,16 +1,30 @@
 import numpy as np
-from exceptions import GaParamsException, MParamsException
+from exceptions import GaParamsException, MParamsException, GaHypertunerParamException
 
 
 class GaHypertuner:
     default_ga_parameters = {"pop_size": 20, "fscale": 0.5, "gmax": 50, "direction": "min",
                              "cp": 0.5}
 
-    def tune(self, ga_parameters: dict, model_parameters: dict
-                 , boundaries: dict):
+    def tune(self, ga_parameters: dict, model, model_parameters: dict
+                 , boundaries: dict
+                 , x_train, y_train
+                 , scoring
+                 , stop_value: int = None
+                 , stratified: bool = False
+                 , verbosity: int = 1
+                 , show_progress_plot: bool = False):
+
+        v_list = [verbosity]
+        stop_criteria = False
+
         self._check_ga_params(ga_parameters)
         self._check_m_parameters(model_parameters, boundaries)
-        # self._check_ga_hypertuner_parameters(stop_criteria, stop_value, verbosity, stratified, show_progress_plot)
+        self._check_ga_hypertuner_parameters(stop_value, v_list, stratified, show_progress_plot)
+
+        verbosity = v_list[0]
+        if stop_value is not None:
+            stop_criteria = True
 
     @staticmethod
     def _check_ga_params(ga_parameters):
@@ -20,7 +34,7 @@ class GaHypertuner:
             r = ga_parameters_range[k]
             if k != "direction":
                 if type(ga_parameters[k]) is not int and type(ga_parameters[k]) is not float:
-                    raise GaParamsException(GaParamsException.PARAMETER_WRONG_TYPE, k, "int or float")
+                    raise GaParamsException(GaParamsException.PARAMETER_WRONG_TYPE, k, "number")
                 if not r[0] < ga_parameters[k] < r[1]:
                     raise GaParamsException(GaParamsException.PARAMETER_OUT_OF_RANGE, k, str(r))
             else:
@@ -60,17 +74,20 @@ class GaHypertuner:
                 raise MParamsException(MParamsException.PARAMETER_WRONG_FORMAT, k)
 
     @staticmethod
-    def _check_ga_hypertuner_parameters(stop_criteria, stop_value, verbosity, stratified, show_progress_plot):
-        if type(stop_criteria) != bool:
-            raise GaHypertunerParamException("stop_criteria", "bool")
-        if type(stop_value) != float:
-            raise GaHypertunerParamException("stop_value", "float")
-        if type(verbosity) != int:
-            raise GaHypertunerParamException("verbosity", "int")
+    def _check_ga_hypertuner_parameters(stop_value, verbosity, stratified, show_progress_plot):
+        if type(stop_value) != float and stop_value is not None and type(stop_value) != int:
+            raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "stop_value", "number")
+        if type(verbosity[0]) != int:
+            raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "verbosity", "int")
         if type(stratified) != bool:
-            raise GaHypertunerParamException("stratified", "bool")
+            raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "stratified", "bool")
         if type(show_progress_plot) != bool:
-            raise GaHypertunerParamException("show_progress_plot", "bool")
+            raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "show_progress_plot", "bool")
+
+        if verbosity[0] not in [0, 1, 2, 3]:
+            verbosity[0] = 1
+            GaHypertunerParamException.warning(GaHypertunerParamException.VERBOSITY_WARNING)
+
 
 
 ga_hypertuner = GaHypertuner()
@@ -78,4 +95,4 @@ mp = {"eta": [1.0, float], "min_child_weight": [None, float], "colsample_bytree"
       "n_estimators": [None, int], "alpha": [None, float], "gamma": [None, float]}
 b = {"eta": [0, 1], "min_child_weight": [0, 5], "colsample_bytree": [0, 1],
       "n_estimators": [100, 1000], "alpha": [0,1], "gamma": [0, 1]}
-ga_hypertuner.tune(GaHypertuner.default_ga_parameters, mp, b)
+ga_hypertuner.tune(GaHypertuner.default_ga_parameters, mp, b, stop_value=2, verbosity=5)
