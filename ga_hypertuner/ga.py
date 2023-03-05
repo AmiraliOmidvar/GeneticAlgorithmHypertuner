@@ -78,12 +78,13 @@ class GA:
                 if self.mpi[j][1] == int:
                     x = int(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
                 if self.mpi[j][1] == float:
-                    x = int(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
+                    x = float(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
 
                 if x > self.b[p][1]:
                     x = self.b[p][1]
                 if x < self.b[p][0]:
                     x = self.b[p][0]
+
                 trial_params[p] = x
             vectors[i] = self.recombination(parent, trial_params)
             if self.verbosity >= 1:
