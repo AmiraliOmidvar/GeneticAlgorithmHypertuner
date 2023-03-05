@@ -46,7 +46,7 @@ class GaHypertuner:
             if k != "direction":
                 if type(ga_parameters[k]) is not int and type(ga_parameters[k]) is not float:
                     raise GaParamsException(GaParamsException.PARAMETER_WRONG_TYPE, k, "number")
-                if not r[0] < ga_parameters[k] < r[1]:
+                if not r[0] <= ga_parameters[k] <= r[1]:
                     raise GaParamsException(GaParamsException.PARAMETER_OUT_OF_RANGE, k, str(r))
             else:
                 if ga_parameters["direction"] != "max" and ga_parameters["direction"] != "min":

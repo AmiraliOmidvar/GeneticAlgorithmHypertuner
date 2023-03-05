@@ -1,6 +1,8 @@
 import random
 import numpy as np
 from sklearn.model_selection import KFold, cross_validate
+from ga_hypertuner.reporting import Reporting
+from ga_hypertuner.visualization import Visualize
 import sys
 
 
@@ -31,6 +33,7 @@ class GA:
         self.stratified = stratified
         self.verbosity = verbosity
         self.show_progress_plot = show_progress_plot
+        self.max_scores = []
         self.min_scores = []
         self.mean_scores = []
         self.best_params = []
@@ -73,9 +76,9 @@ class GA:
                 p = self.mp[j]
 
                 if self.mpi[j][1] == int:
-                    x = int(chosen[0][p] + self.gp["fscale"] * (chosen[1][p] - chosen[2][p]))
+                    x = int(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
                 if self.mpi[j][1] == float:
-                    x = chosen[0][p] + self.gp["fscale"] * (chosen[1][p] - chosen[2][p])
+                    x = int(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
 
                 if x > self.b[p][1]:
                     x = self.b[p][1]
@@ -84,7 +87,7 @@ class GA:
                 trial_params[p] = x
             vectors[i] = self.recombination(parent, trial_params)
             if self.verbosity >= 1:
-                self.progress(i + 1, self.gp["pop_size"])
+                Reporting.progress(i + 1, self.gp["pop_size"])
         return vectors
 
     def recombination(self, parent, trial_params):
@@ -120,15 +123,15 @@ class GA:
 
         return False
 
-    def reporting(self, scores):
+    def reporting(self, scores, vectors):
         if self.verbosity >= 1:
-            self.verbose1(scores, self.s, self.best_params)
+            Reporting.verbose1(scores, self.s, self.best_params)
         if self.verbosity >= 2:
-            self.verbose2(vectors)
+            Reporting.verbose2(vectors)
         if self.verbosity >= 3:
-            self.verbose3(vectors, self.s)
+            Reporting.verbose3(vectors, self.s)
         if self.generation > 1 and self.show_progress_plot:
-            progress_band(self.max_scores, self.min_scores, self.mean_scores, self.s)
+            Visualize.progress_band(self.max_scores, self.min_scores, self.mean_scores, self.s)
 
     def main(self):
         vectors = self.initiation()
@@ -148,7 +151,7 @@ class GA:
             self.max_scores.append(max(scores))
             self.min_scores.append(min(scores))
             self.mean_scores.append(scores.mean())
-            self.reporting(scores)
+            self.reporting(scores, vectors)
             if self.stop_criteria:
                 if self.stop(scores):
                     break
