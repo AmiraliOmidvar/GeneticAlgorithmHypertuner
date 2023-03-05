@@ -3,7 +3,7 @@ from ga_hypertuner.exceptions import GaParamsException, MParamsException, GaHype
 from ga_hypertuner.ga import GA
 
 
-class GaHypertuner:
+class Tuner:
     default_ga_parameters = {"pop_size": 20, "fscale": 0.5, "gmax": 50, "direction": "min",
                              "cp": 0.5}
     best_params = None
