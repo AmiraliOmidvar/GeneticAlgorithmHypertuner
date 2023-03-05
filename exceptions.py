@@ -18,6 +18,7 @@ class GaParamsException(Exception):
 class MParamsException(Exception):
     KEYS_NOT_EQUAL = "parameter dictionary and boundary dictionary should have the same keys"
     BOUNDARY_VALUE = " : boundaries should have two values, a start and an end"
+    BOUNDARY_INVALID = " : boundaries values are invalid"
     PARAMETER_WRONG_FORMAT = " : wrong format, format of parameter should be either [None,Type] or [Value,Type]"
 
     def __init__(self, message, parameter: str = ""):

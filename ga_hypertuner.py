@@ -3,7 +3,7 @@ from exceptions import GaParamsException, MParamsException
 
 
 class GaHypertuner:
-    default_ga_parameters = {"pop_size": 20, "fscale": 0.5, "gmax": 50, "stop_value": 0.99, "direction": "max",
+    default_ga_parameters = {"pop_size": 20, "fscale": 0.5, "gmax": 50, "direction": "min",
                              "cp": 0.5}
 
     def tune(self, ga_parameters: dict, model_parameters: dict
@@ -46,6 +46,8 @@ class GaHypertuner:
         for k in list(boundaries.keys()):
             if len(boundaries[k]) != 2:
                 raise MParamsException(MParamsException.BOUNDARY_VALUE, k)
+            if boundaries[k][0] >= boundaries[k][1]:
+                raise MParamsException(MParamsException.BOUNDARY_INVALID, k)
 
         for k in list(model_parameters.keys()):
             if len(model_parameters[k]) != 2:
@@ -75,5 +77,5 @@ ga_hypertuner = GaHypertuner()
 mp = {"eta": [1.0, float], "min_child_weight": [None, float], "colsample_bytree": [None, float],
       "n_estimators": [None, int], "alpha": [None, float], "gamma": [None, float]}
 b = {"eta": [0, 1], "min_child_weight": [0, 5], "colsample_bytree": [0, 1],
-      "n_estimators": [100, 1000], "alpha": [0,-1], "gamma": [0, 1]}
-ga_hypertuner.tune({"pop_size": 20, "fscale": 1.5, "gmax": 50, "direction": "max", "cp": 0.5}, mp, b)
+      "n_estimators": [100, 1000], "alpha": [0,1], "gamma": [0, 1]}
+ga_hypertuner.tune(GaHypertuner.default_ga_parameters, mp, b)
