@@ -36,11 +36,11 @@ class GA:
         self.verbosity = verbosity
         self.show_progress_plot = show_progress_plot
         self.return_model = return_model
-        self.min_losses = []
-        self.mean_losses = []
+        self.min_scores = []
+        self.mean_scores = []
         self.best_params = []
 
-    def loss(self, params):
+    def score(self, params):
         model = self.model_func(**params)
         kf = KFold(n_splits=self.k, shuffle=True)
         score = cross_validate(model, self.x_t, self.y_t, cv=kf, scoring=self.s, return_train_score=False)["test_score"]
@@ -63,8 +63,8 @@ class GA:
                 else:
                     x = pi
                 params[p] = x
-            loss = self.loss(params)
-            vector = {"params": params, "loss": loss}
+            score = self.score(params)
+            vector = {"params": params, "score": score}
             vectors.append(vector)
         return vectors
 
@@ -104,60 +104,60 @@ class GA:
                 child_params[p] = trial_params[p]
             else:
                 child_params[p] = parent["params"][p]
-        child_loss = self.loss(child_params)
-        child = {"params": child_params, "loss": child_loss}
+        child_score = self.score(child_params)
+        child = {"params": child_params, "score": child_score}
 
         if self.gp["direction"] == "min":
-            if child["loss"] <= parent["loss"]:
+            if child["score"] <= parent["score"]:
                 return child
             else:
                 return parent
         if self.gp["direction"] == "max":
-            if child["loss"] >= parent["loss"]:
+            if child["score"] >= parent["score"]:
                 return child
             else:
                 return parent
 
-    def stop(self, losses):
+    def stop(self, scores):
         if self.gp["direction"] == "max":
-            if max(losses) > self.stop_value:
+            if max(scores) > self.stop_value:
                 return True
         if self.gp["direction"] == "min":
-            if max(losses) < self.stop_value:
+            if max(scores) < self.stop_value:
                 return True
 
         return False
 
-    def reporting(self, losses):
+    def reporting(self, scores):
         if self.verbosity >= 1:
-            self.verbose1(losses, self.s, self.best_params)
+            self.verbose1(scores, self.s, self.best_params)
         if self.verbosity >= 2:
             self.verbose2(vectors)
         if self.verbosity >= 3:
             self.verbose3(vectors, self.s)
         if self.generation > 1 and self.show_progress_plot:
-            progress_band(self.max_losses, self.min_losses, self.mean_losses, self.s)
+            progress_band(self.max_scores, self.min_scores, self.mean_scores, self.s)
 
     def main(self):
         vectors = self.initiation()
         while self.generation < self.gp["gmax"]:
             print("\nGeneration " + str(self.generation))
-            losses = np.zeros(self.gp["pop_size"])
+            scores = np.zeros(self.gp["pop_size"])
             self.generation += 1
             vectors = self.mutation(vectors)
             for j in range(len(vectors)):
-                losses[j] = vectors[j]['loss']
+                scores[j] = vectors[j]['score']
 
             if self.gp["direction"] == "max":
-                self.best_params = vectors[list(losses).index(max(losses))]["params"]
+                self.best_params = vectors[list(scores).index(max(scores))]["params"]
             if self.gp["direction"] == "min":
-                self.best_params = vectors[list(losses).index(min(losses))]["params"]
+                self.best_params = vectors[list(scores).index(min(scores))]["params"]
 
-            self.max_losses.append(max(losses))
-            self.min_losses.append(min(losses))
-            self.mean_losses.append(losses.mean())
-            self.reporting(losses)
+            self.max_scores.append(max(scores))
+            self.min_scores.append(min(scores))
+            self.mean_scores.append(scores.mean())
+            self.reporting(scores)
             if self.stop_criteria:
-                if self.stop(losses):
+                if self.stop(scores):
                     break
         return vectors
