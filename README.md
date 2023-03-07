@@ -69,7 +69,7 @@ for more examples and info please refer to doc.
 
 ## Documentation
 
-you can find tron_explorer [doc here](https://ga-hypertuner.readthedocs.io/en/latest/).
+you can find ga_hypertuner [doc here](https://ga-hypertuner.readthedocs.io/en/latest/).
 
 ## Contributing
 
