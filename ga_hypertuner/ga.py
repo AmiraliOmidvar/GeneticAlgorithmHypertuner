@@ -4,6 +4,7 @@ from sklearn.model_selection import KFold, cross_validate
 from ga_hypertuner.reporting import Reporting
 from ga_hypertuner.visualization import Visualize
 import sys
+from typing import Union
 
 
 class GA:
@@ -117,7 +118,7 @@ class GA:
             for j in range(self.dim):
                 p = self.mp[j]
                 pi = self.mpi[j]
-                if pi[0] is None:
+                if type(pi) == list:
                     bound = self.b[p]
                     if pi[1] == int:
                         x = int(random.randint(bound[0], bound[1]))
@@ -153,18 +154,21 @@ class GA:
             trial_params = {}
             for j in range(self.dim):
                 p = self.mp[j]
+                pi = self.mpi[j]
+                if type(pi) == list:
+                    if pi[1] == int:
+                        x = int(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (
+                                vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
+                    elif pi[1] == float:
+                        x = float(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (
+                                vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
 
-                if self.mpi[j][1] == int:
-                    x = int(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (
-                            vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
-                if self.mpi[j][1] == float:
-                    x = float(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (
-                            vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
-
-                if x > self.b[p][1]:
-                    x = self.b[p][1]
-                if x < self.b[p][0]:
-                    x = self.b[p][0]
+                    if x > self.b[p][1]:
+                        x = self.b[p][1] - 1e-10
+                    if x < self.b[p][0]:
+                        x = self.b[p][0] + 1e-10
+                else:
+                    x = pi
 
                 trial_params[p] = x
 

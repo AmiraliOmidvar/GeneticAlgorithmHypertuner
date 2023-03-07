@@ -1,6 +1,7 @@
 import numpy as np
 from ga_hypertuner.exceptions import GaParamsException, MParamsException, GaHypertunerParamException
 from ga_hypertuner.ga import GA
+from typing import Union
 
 
 class Tuner:
@@ -9,12 +10,13 @@ class Tuner:
 
     :ivar default_ga_parameters: a default dictionary for ga_parameters.
     """
-    default_ga_parameters = {"pop_size": 20, "fscale": 0.5, "gmax": 50, "direction": "min",
+    default_ga_parameters = {"pop_size": 20, "fscale": 0.5, "gmax": 20, "direction": "max",
                              "cp": 0.5}
 
-    def tune(self, ga_parameters: dict, model, model_parameters: dict
+    @staticmethod
+    def tune(x_train, y_train, model
+             , ga_parameters: dict, model_parameters: dict
              , boundaries: dict
-             , x_train, y_train
              , scoring
              , stop_value: int = None
              , stratified: bool = False
@@ -76,9 +78,9 @@ class Tuner:
         stop_criteria = False
 
         # check parameters
-        self._check_ga_params(ga_parameters)
-        self._check_m_parameters(model_parameters, boundaries)
-        self._check_ga_hypertuner_parameters(stop_value, v_list, stratified, show_progress_plot)
+        Tuner._check_ga_params(ga_parameters)
+        Tuner._check_m_parameters(model_parameters, boundaries)
+        Tuner._check_ga_hypertuner_parameters(stop_value, v_list, stratified, show_progress_plot)
 
         # set values for verbosity and
         verbosity = v_list[0]
@@ -140,8 +142,6 @@ class Tuner:
         :type boundaries: dict
         :return: None
         """
-        if set(model_parameters) != set(boundaries):
-            raise MParamsException(MParamsException.KEYS_NOT_EQUAL)
 
         for k in list(boundaries.keys()):
             if len(boundaries[k]) != 2:
@@ -150,14 +150,14 @@ class Tuner:
                 raise MParamsException(MParamsException.BOUNDARY_INVALID, k)
 
         for k in list(model_parameters.keys()):
-            if len(model_parameters[k]) != 2:
-                raise MParamsException(MParamsException.PARAMETER_WRONG_FORMAT, k)
-            if type(model_parameters[k]) != list:
-                raise MParamsException(MParamsException.PARAMETER_WRONG_FORMAT, k)
-            if type(model_parameters[k][1]) != type:
-                raise MParamsException(MParamsException.PARAMETER_WRONG_FORMAT, k)
-            if model_parameters[k][0] is not None and type(model_parameters[k][0]) != model_parameters[k][1]:
-                raise MParamsException(MParamsException.PARAMETER_WRONG_FORMAT, k)
+            if type(model_parameters[k]) == list:
+                if type(model_parameters[k][1]) != type and model_parameters[k][0] is None:
+                    raise MParamsException(MParamsException.PARAMETER_WRONG_FORMAT, k)
+                if model_parameters[k][0] is not None and type(model_parameters[k][0]) != model_parameters[k][1]:
+                    raise MParamsException(MParamsException.PARAMETER_WRONG_FORMAT, k)
+                if model_parameters[k][0] is None:
+                    if k not in list(boundaries.keys()):
+                        raise MParamsException(MParamsException.KEYS_NOT_EQUAL)
 
     @staticmethod
     def _check_ga_hypertuner_parameters(stop_value, verbosity, stratified, show_progress_plot):

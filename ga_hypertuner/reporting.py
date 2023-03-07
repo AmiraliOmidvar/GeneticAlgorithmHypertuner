@@ -70,5 +70,5 @@ class Reporting:
         vectors = pd.DataFrame(vectors_no_score)
         vectors[score_name] = score
         print("-" * 50)
-        print("\nPopulation Size")
+        print("\nPopulation")
         print(vectors)

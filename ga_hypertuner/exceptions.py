@@ -28,10 +28,10 @@ class GaParamsException(Exception):
 
 
 class MParamsException(Exception):
-    KEYS_NOT_EQUAL = "Parameter dictionary and boundary dictionary should have the same keys"
+    KEYS_NOT_EQUAL = "Parameters with no static value should have a specified boundary"
     BOUNDARY_VALUE = " : Boundaries should have two values, a start and an end"
     BOUNDARY_INVALID = " : Boundaries values are invalid"
-    PARAMETER_WRONG_FORMAT = " : Wrong format, format of parameter should be either [None,Type] or [Value,Type]"
+    PARAMETER_WRONG_FORMAT = " : Wrong format, format of parameter should be either [None,Type] or a static value"
 
     """
     Exception raised for invalid Model parameters.

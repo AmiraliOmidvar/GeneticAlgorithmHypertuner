@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 
 
 class Visualize:
@@ -34,4 +35,6 @@ class Visualize:
         plt.plot(x, mins, label="Min " + score_name, linewidth=2, color="red")
         plt.fill_between(x, maxs, mins, color="#9C27B0", alpha=0.2)
         plt.legend(loc="upper left", prop={'size': 8})
+        ax = plt.gca()
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True, prune='both', nbins=15))
         plt.show()
