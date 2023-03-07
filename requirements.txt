@@ -1,5 +1,4 @@
 setuptools~=60.2.0
-sklearn~=0.0.post1
 scikit-learn>=1.0
 xgboost>=1.6.2
 numpy>=1.16.0
