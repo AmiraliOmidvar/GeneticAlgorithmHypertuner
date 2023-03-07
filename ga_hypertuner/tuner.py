@@ -103,8 +103,10 @@ class Tuner:
 
         """
         Checks ga_parameters.
+
         :param ga_parameters: Parameters of the genetic algorithm. For more information on the parameters.
         :type ga_parameters: dict
+
         :return: None
         """
 
@@ -166,7 +168,7 @@ class Tuner:
         """
         Check tuner parameters.
         :param stop_value: The score that, when reached, the algorithm will stop. Default is None.
-        :type stop_value:Union[int, float]
+        :type stop_value:int or float
 
         :param verbosity: Determines the amount of information that is returned after each generation is generated. Accepted values are 0, 1, 2, or 3. Default is 1.
         :type verbosity: int

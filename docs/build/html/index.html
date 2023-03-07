@@ -178,10 +178,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="ga_hypertuner.tuner.Tuner._check_ga_params">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_check_ga_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ga_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.tuner.Tuner._check_ga_params" title="Permalink to this definition"></a></dt>
-<dd><p>Checks ga_parameters.
-:param ga_parameters: Parameters of the genetic algorithm. For more information on the parameters.
-:type ga_parameters: dict
-:return: None</p>
+<dd><p>Checks ga_parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ga_parameters</strong> (<em>dict</em>) – Parameters of the genetic algorithm. For more information on the parameters.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -205,7 +210,7 @@
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_check_ga_hypertuner_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stop_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_plot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.tuner.Tuner._check_ga_hypertuner_parameters" title="Permalink to this definition"></a></dt>
 <dd><p>Check tuner parameters.
 :param stop_value: The score that, when reached, the algorithm will stop. Default is None.
-:type stop_value:Union[int, float]</p>
+:type stop_value:int or float</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -241,14 +246,7 @@
 <li><p><strong>y_train</strong> (<em>Dataframe</em>) – Training target for the given model. This data will be used to train the model without slicing or sampling.</p></li>
 <li><p><strong>scoring</strong> (<em>str</em>) – The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.</p></li>
 <li><p><strong>stop_criteria</strong> (<em>bool</em>) – Whether the algorithm should stop if it reaches a certain value or not.</p></li>
-<li><p><strong>stop_value</strong> – The score that, when reached, the algorithm will stop. Default is None.</p></li>
-</ul>
-</dd>
-</dl>
-<p>:type stop_value:Union[int, float]</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
+<li><p><strong>stop_value</strong> (<em>int</em><em> or </em><em>float</em>) – The score that, when reached, the algorithm will stop. Default is None.</p></li>
 <li><p><strong>k</strong> (<em>int</em>) – Number of splits for k-fold cross validation. Accepted values are integers greater than 1. Default is 5.</p></li>
 <li><p><strong>stratified</strong> (<em>bool</em>) – Whether to use stratified cross validation or not. Default is False.</p></li>
 <li><p><strong>verbosity</strong> (<em>int</em>) – Determines the amount of information that is returned after each generation is generated. Accepted values are 0, 1, 2, or 3. Default is 1.</p></li>
@@ -269,44 +267,74 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="ga_hypertuner.ga.GA.score">
 <span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.score" title="Permalink to this definition"></a></dt>
-<dd><p>calculates score of an individual. the score of an individual is its models mean score of cross validation.
-:param params: attributes of individual. (hyperparameters)
-:type params: dict
-:return: score of an individual</p>
+<dd><p>calculates score of an individual. the score of an individual is its models mean score of cross validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>dict</em>) – attributes of individual. (hyperparameters)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>score of an individual</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ga_hypertuner.ga.GA.initiation">
 <span class="sig-name descname"><span class="pre">initiation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.initiation" title="Permalink to this definition"></a></dt>
-<dd><p>Initializes the population vectors with random hyperparameters, and their respective scores.
-:return: A list of population vectors, where each vector is a dictionary containing the hyperparameters as “params” and their respective scores as “score”.
-:rtype: list</p>
+<dd><p>Initializes the population vectors with random hyperparameters, and their respective scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of population vectors, where each vector is a dictionary containing the hyperparameters as “params” and their respective scores as “score”.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ga_hypertuner.ga.GA.mutation">
 <span class="sig-name descname"><span class="pre">mutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.mutation" title="Permalink to this definition"></a></dt>
-<dd><p>Performs mutation on the input list of vectors and returns the updated list of vectors.
-:param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
-:returns: A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after mutation.</p>
+<dd><p>Performs mutation on the input list of vectors and returns the updated list of vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vectors</strong> – A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after mutation.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ga_hypertuner.ga.GA.recombination">
 <span class="sig-name descname"><span class="pre">recombination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.recombination" title="Permalink to this definition"></a></dt>
-<dd><p>Recombine parent and trial individual to create child, then decides child or parent should be returned to population based on their score.
-:param parent: parent individual
-:param trial_params: trial individual
-:return A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after recombination.:</p>
+<dd><p>Recombine parent and trial individual to create child, then decides child or parent should be returned to population based on their score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – parent individual</p></li>
+<li><p><strong>trial_params</strong> – trial individual</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after recombination.:</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ga_hypertuner.ga.GA.stop">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.stop" title="Permalink to this definition"></a></dt>
-<dd><p>Checks if max score is reached the specified stop_value
-:param scores: A NumpyArray of scores obtained for the individuals in the current generation.
-:type scores: NumpyArray
-:return: A bool determining whether of algorithm should stop or not</p>
+<dd><p>Checks if max score is reached the specified stop_value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>scores</strong> (<em>NumpyArray</em>) – A NumpyArray of scores obtained for the individuals in the current generation.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A bool determining whether of algorithm should stop or not</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

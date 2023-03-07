@@ -35,7 +35,7 @@ class GA:
     :type stop_criteria: bool
 
     :param stop_value: The score that, when reached, the algorithm will stop. Default is None.
-    :type stop_value:Union[int, float]
+    :type stop_value: int or float
 
     :param k: Number of splits for k-fold cross validation. Accepted values are integers greater than 1. Default is 5.
     :type k: int
@@ -97,8 +97,10 @@ class GA:
 
         """
         calculates score of an individual. the score of an individual is its models mean score of cross validation.
+
         :param params: attributes of individual. (hyperparameters)
         :type params: dict
+
         :return: score of an individual
         """
         model = self.model_class(**params)
@@ -113,6 +115,7 @@ class GA:
 
         """
         Initializes the population vectors with random hyperparameters, and their respective scores.
+
         :return: A list of population vectors, where each vector is a dictionary containing the hyperparameters as "params" and their respective scores as "score".
         :rtype: list
         """
@@ -141,7 +144,9 @@ class GA:
     def mutation(self, vectors):
         """
         Performs mutation on the input list of vectors and returns the updated list of vectors.
+
         :param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
+
         :returns: A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after mutation.
 
         """
@@ -194,9 +199,11 @@ class GA:
     def recombination(self, parent, trial_params):
         """
         Recombine parent and trial individual to create child, then decides child or parent should be returned to population based on their score.
+
         :param parent: parent individual
         :param trial_params: trial individual
-        :return A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after recombination.:
+
+        :return: A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after recombination.:
         """
 
         child_params = {}
@@ -224,8 +231,10 @@ class GA:
     def stop(self, scores):
         """
         Checks if max score is reached the specified stop_value
+
         :param scores: A NumpyArray of scores obtained for the individuals in the current generation.
         :type scores: NumpyArray
+
         :return: A bool determining whether of algorithm should stop or not
         """
         if self.gp["direction"] == "max":
