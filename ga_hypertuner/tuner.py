@@ -22,7 +22,8 @@ class Tuner:
              , stratified: bool = False
              , k: int = 5
              , verbosity: int = 1
-             , show_progress_plot: bool = False):
+             , show_progress_plot: bool = False
+             , plot_step: int = 1):
 
         """
         Main method to call to start tuning algorithm.
@@ -70,6 +71,9 @@ class Tuner:
         :param show_progress_plot: Whether the progress plot of the score for each generation should be shown at the end of each generation.
         :type show_progress_plot: bool
 
+        :param plot_step: number of generations to skip before displaying progress plot.
+        :type plot_step: int
+
         :return: a dictionary containing the best hyperparameters.
         """
 
@@ -80,7 +84,7 @@ class Tuner:
         # check parameters
         Tuner._check_ga_params(ga_parameters)
         Tuner._check_m_parameters(model_parameters, boundaries)
-        Tuner._check_ga_hypertuner_parameters(stop_value, v_list, stratified, show_progress_plot)
+        Tuner._check_ga_hypertuner_parameters(stop_value, v_list, stratified, show_progress_plot, plot_step)
 
         # set values for verbosity and
         verbosity = v_list[0]
@@ -92,7 +96,8 @@ class Tuner:
                 , boundaries, x_train, y_train
                 , scoring, stop_criteria=stop_criteria
                 , stop_value=stop_value, stratified=stratified
-                , k=k, verbosity=verbosity, show_progress_plot=show_progress_plot)
+                , k=k, verbosity=verbosity, show_progress_plot=show_progress_plot
+                , plot_step=plot_step)
 
         return ga.main()
 
@@ -160,7 +165,7 @@ class Tuner:
                         raise MParamsException(MParamsException.KEYS_NOT_EQUAL)
 
     @staticmethod
-    def _check_ga_hypertuner_parameters(stop_value, verbosity, stratified, show_progress_plot):
+    def _check_ga_hypertuner_parameters(stop_value, verbosity, stratified, show_progress_plot, plot_step):
         """
         Check tuner parameters.
         :param stop_value: The score that, when reached, the algorithm will stop. Default is None.
@@ -175,6 +180,9 @@ class Tuner:
         :param show_progress_plot: Whether the progress plot of the score for each generation should be shown at the end of each generation.
         :type show_progress_plot: bool
 
+        :param plot_step: number of generations to skip before displaying progress plot.
+        :type plot_step: int
+
         :return: None
         """
         if type(stop_value) != float and stop_value is not None and type(stop_value) != int:
@@ -186,6 +194,9 @@ class Tuner:
         if type(show_progress_plot) != bool:
             raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "show_progress_plot",
                                              "bool")
+        if type(plot_step) != int:
+            raise GaHypertunerParamException(GaHypertunerParamException.PARAMETER_WRONG_TYPE, "plot_step",
+                                             "int")
 
         if verbosity[0] not in [0, 1, 2, 3]:
             verbosity[0] = 1

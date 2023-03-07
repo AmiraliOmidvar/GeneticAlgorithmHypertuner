@@ -43,7 +43,7 @@ class Reporting:
         """
         This method takes in a list of individuals as input and prints a summary of the hyperparameters values of whole generation.
         :param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
-        :type vectors: dict
+        :type vectors: list
         :return: None
         """
         vectors_no_score = [d["params"] for d in vectors]
@@ -57,7 +57,7 @@ class Reporting:
         """
         This method takes in a list of individuals as input and prints value of hyperparameters and scores of all individuals in population.
         :param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
-        :type vectors: dict
+        :type vectors: list
 
         :param score_name: The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.
         :type score_name: str

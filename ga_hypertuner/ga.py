@@ -56,6 +56,9 @@ class GA:
 
     :param show_progress_plot: Whether the progress plot of the score for each generation should be shown at the end of each generation.
     :type show_progress_plot: bool
+
+    :param plot_step: number of generations to skip before displaying progress plot.
+    :type plot_step: int
     """
 
     def __init__(self, ga_parameters: dict, model_class
@@ -66,7 +69,8 @@ class GA:
                  , stop_criteria: bool = False, stop_value: Union[int, float] = None
                  , k: int = 5, stratified: bool = False
                  , verbosity: int = 1
-                 , show_progress_plot: bool = False):
+                 , show_progress_plot: bool = False
+                 , plot_step: int = 1):
 
         self.generation = 0
         self.gp = ga_parameters
@@ -84,6 +88,7 @@ class GA:
         self.stratified = stratified
         self.verbosity = verbosity
         self.show_progress_plot = show_progress_plot
+        self.plot_step = plot_step
         self.max_scores = []
         self.min_scores = []
         self.mean_scores = []
@@ -97,7 +102,6 @@ class GA:
         :type params: dict
         :return: score of an individual
         """
-
         model = self.model_class(**params)
         kf = KFold(n_splits=self.k, shuffle=True)
         score = cross_validate(model, self.x_t, self.y_t, cv=kf, scoring=self.s, return_train_score=False)["test_score"]
@@ -156,17 +160,24 @@ class GA:
                 p = self.mp[j]
                 pi = self.mpi[j]
                 if type(pi) == list:
+
                     if pi[1] == int:
                         x = int(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (
                                 vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
+
+                        if x > self.b[p][1]:
+                            x = self.b[p][1]
+                        if x < self.b[p][0]:
+                            x = self.b[p][0]
+
                     elif pi[1] == float:
                         x = float(vectors[chosen[0]]["params"][p] + self.gp["fscale"] * (
                                 vectors[chosen[1]]["params"][p] - vectors[chosen[2]]["params"][p]))
 
-                    if x > self.b[p][1]:
-                        x = self.b[p][1] - 1e-10
-                    if x < self.b[p][0]:
-                        x = self.b[p][0] + 1e-10
+                        if x > self.b[p][1]:
+                            x = self.b[p][1] - 1e-10
+                        if x < self.b[p][0]:
+                            x = self.b[p][0] + 1e-10
                 else:
                     x = pi
 
@@ -247,7 +258,7 @@ class GA:
             Reporting.verbose3(vectors, self.s)
 
         # Show progress plot if enabled
-        if self.generation > 1 and self.show_progress_plot:
+        if self.generation % self.plot_step == 0 and self.show_progress_plot:
             Visualize.progress_band(self.max_scores, self.min_scores, self.mean_scores, self.s)
 
     def main(self):
