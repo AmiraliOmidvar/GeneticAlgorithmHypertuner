@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from sklearn.model_selection import KFold, cross_validate
+from sklearn.model_selection import KFold, cross_validate, StratifiedKFold
 from ga_hypertuner.reporting import Reporting
 from ga_hypertuner.visualization import Visualize
 import sys
@@ -103,8 +103,11 @@ class GA:
         :return: score of an individual
         """
         model = self.model_class(**params)
-        kf = KFold(n_splits=self.k, shuffle=True)
-        score = cross_validate(model, self.x_t, self.y_t, cv=kf, scoring=self.s, return_train_score=False)["test_score"]
+        if self.stratified:
+            cv = StratifiedKFold(n_splits=self.k, shuffle=True)
+        else:
+            cv = KFold(n_splits=self.k, shuffle=True)
+        score = cross_validate(model, self.x_t, self.y_t, cv=cv, scoring=self.s, return_train_score=False)["test_score"]
         return score.mean()
 
     def initiation(self):
