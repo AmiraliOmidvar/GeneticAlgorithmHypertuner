@@ -6,12 +6,34 @@ import sys
 class Reporting:
     @staticmethod
     def progress(done, pop_size):
+        """
+        Displays the progress of the current generation.
+        :param done: individuals gone through mutation.
+        :type done: int
+
+        :param pop_size: total population size
+        :type pop_size: int
+
+        :return: None
+        """
+
         prefix = "Generated Pop"
         prog = (prefix + " " + str(done) + "/" + str(pop_size))
         sys.stdout.write('\r' + prog)
 
     @staticmethod
     def verbose1(scores, score_name, best_params):
+        """
+        Prints the maximum, minimum, and mean of the given scores along with the best parameters obtained so far during the optimization process.
+        :param scores: A NumpyArray of scores obtained for the individuals in the current generation.
+        :type scores: NumpyArray
+
+        :param score_name: The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.
+        :type score_name: str
+
+        :param best_params: a dictionary containing current hyperparameters corresponding to best score.
+        :return: None
+        """
         print("\nMax " + score_name + " : " + str(max(scores)), "Min " + score_name + " : " + str(min(scores)),
               "Mean " + score_name + " : " + str(scores.mean()))
         print("\n" + str(best_params))
