@@ -1,7 +1,6 @@
 from sklearn import datasets
 from ga_hypertuner.tuner import Tuner
 from sklearn.linear_model import LogisticRegression as lr
-from xgboost import XGBRegressor as xgbr
 
 # Example 1
 # loading data

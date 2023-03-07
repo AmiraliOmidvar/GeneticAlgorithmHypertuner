@@ -4,6 +4,9 @@ import sys
 
 
 class Reporting:
+    """
+    A class containing methods  for reporting progress of optimization.
+    """
     @staticmethod
     def progress(done, pop_size):
         """
@@ -42,6 +45,7 @@ class Reporting:
     def verbose2(vectors):
         """
         This method takes in a list of individuals as input and prints a summary of the hyperparameters values of whole generation.
+
         :param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
         :type vectors: list
         :return: None

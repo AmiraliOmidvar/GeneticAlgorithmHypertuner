@@ -28,16 +28,8 @@ class Tuner:
         """
         Main method to call to start tuning algorithm.
 
-        :param ga_parameters: Parameters of the genetic algorithm. For more information on the parameters, see below.
+        :param ga_parameters: Parameters of the genetic algorithm. For more information on the parameters, refer to end of parameters.
         :type ga_parameters: dict
-
-        :ga_parameters:
-            * *direction* (``int``): Determines whether the score of models should be maximized or minimized. Accepted values are ["max","min"].
-            * *pop_size* (``int``): Size of population in each generation. Increasing this value will reduce the chance of local optima. Accepted values are integers greater than 5. Default is 20.
-            * *gmax* (``int``): Maximum number of generations. After this many generations, the algorithm will stop and return the best params. Accepted values are integers greater than 1. Default is 50.
-            * *fscale* (``int``): A scaling factor that controls the amount of effect that differences between parameters of population members have. larger values will result in larger convergence rate.
-            When convergence rate is higher, it will take less time for algorithm to reach local optimum, but the local optimum have lesser chance of being global. Reducing it will opposite result Accepted values are floats between 0 and 1. Default is 0.5.
-            * *cp* (``int``): The probability that a child will inherit a parameter from a parent instead of a trial vector. Accepted values are floats between 0 and 1. Default is 0.5.
 
         :param model: Model class that its hyperparameters are being optimized. Any model class that scikit cross-validate module can accept.
 
@@ -57,7 +49,7 @@ class Tuner:
         :type scoring: str
 
         :param stop_value: The score that, when reached, the algorithm will stop. Default is None.
-        :type stop_value:Union[int, float]
+        :type stop_value: int or float
 
         :param k: Number of splits for k-fold cross validation. Accepted values are integers greater than 1. Default is 5.
         :type k: int
@@ -73,7 +65,12 @@ class Tuner:
 
         :param plot_step: number of generations to skip before displaying progress plot.
         :type plot_step: int
-
+        :GA Parameters:
+            * *direction* (``int``): Determines whether the score of models should be maximized or minimized. Accepted values are ["max","min"].
+            * *pop_size* (``int``): Size of population in each generation. Increasing this value will reduce the chance of local optima. Accepted values are integers greater than 5. Default is 20.
+            * *gmax* (``int``): Maximum number of generations. After this many generations, the algorithm will stop and return the best params. Accepted values are integers greater than 1. Default is 50.
+            * *fscale* (``int``): A scaling factor that controls the amount of effect that differences between parameters of population members have. larger values will result in larger convergence rate. When convergence rate is higher, it will take less time for algorithm to reach local optimum, but the local optimum have lesser chance of being global. Reducing it will opposite result Accepted values are floats between 0 and 1. Default is 0.5.
+            * *cp* (``int``): The probability that a child will inherit a parameter from a parent instead of a trial vector. Accepted values are floats between 0 and 1. Default is 0.5.
         :return: a dictionary containing the best hyperparameters.
         """
 

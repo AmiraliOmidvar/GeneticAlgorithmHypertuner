@@ -3,6 +3,9 @@ from matplotlib.ticker import MaxNLocator
 
 
 class Visualize:
+    """
+    A class containing methods for visualizing progress of optimization.
+    """
     @staticmethod
     def progress_band(maxs, mins, means, score_name):
         """

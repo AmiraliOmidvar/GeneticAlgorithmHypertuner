@@ -14,14 +14,6 @@ class GA:
     :param ga_parameters: Parameters of the genetic algorithm. For more information on the parameters, see below.
     :type ga_parameters: dict
 
-    :ga_parameters:
-        * *direction* (``int``): Determines whether the score of models should be maximized or minimized. Accepted values are ["max","min"].
-        * *pop_size* (``int``): Size of population in each generation. Increasing this value will reduce the chance of local optima. Accepted values are integers greater than 5. Default is 20.
-        * *gmax* (``int``): Maximum number of generations. After this many generations, the algorithm will stop and return the best params. Accepted values are integers greater than 1. Default is 50.
-        * *fscale* (``int``): A scaling factor that controls the amount of effect that differences between parameters of population members have. larger values will result in larger convergence rate.
-        When convergence rate is higher, it will take less time for algorithm to reach local optimum, but the local optimum have lesser chance of being global. Reducing it will opposite result Accepted values are floats between 0 and 1. Default is 0.5.
-        * *cp* (``int``): The probability that a child will inherit a parameter from a parent instead of a trial vector. Accepted values are floats between 0 and 1. Default is 0.5.
-
     :param model_class: Model class that its hyperparameters are being optimized. Any model class that scikit cross-validate module can accept.
 
     :param model_parameters: hyperparameters that are being optimized. This is a dictionary with parameters of the machine learning model as keys and a list either like [None, Parameter Type] (for optimization of parameter) or [Static Value, Parameter] (for passing the parameter as a static value that will not be changed).
@@ -59,6 +51,13 @@ class GA:
 
     :param plot_step: number of generations to skip before displaying progress plot.
     :type plot_step: int
+
+    :GA Parameters:
+        * *direction* (``int``): Determines whether the score of models should be maximized or minimized. Accepted values are ["max","min"].
+        * *pop_size* (``int``): Size of population in each generation. Increasing this value will reduce the chance of local optima. Accepted values are integers greater than 5. Default is 20.
+        * *gmax* (``int``): Maximum number of generations. After this many generations, the algorithm will stop and return the best params. Accepted values are integers greater than 1. Default is 50.
+        * *fscale* (``int``): A scaling factor that controls the amount of effect that differences between parameters of population members have. larger values will result in larger convergence rate. When convergence rate is higher, it will take less time for algorithm to reach local optimum, but the local optimum have lesser chance of being global. Reducing it will opposite result Accepted values are floats between 0 and 1. Default is 0.5.
+        * *cp* (``int``): The probability that a child will inherit a parameter from a parent instead of a trial vector. Accepted values are floats between 0 and 1. Default is 0.5.
     """
 
     def __init__(self, ga_parameters: dict, model_class
