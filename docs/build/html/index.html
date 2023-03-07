@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to GA Hypertuner’s documentation! &mdash; GA Hypertuner 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> GA Hypertuner
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to GA Hypertuner’s documentation!</a></li>
+<li><a class="reference internal" href="#module-ga_hypertuner.tuner">Tuner</a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.tuner.Tuner"><code class="docutils literal notranslate"><span class="pre">Tuner</span></code></a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.tuner.Tuner.tune"><code class="docutils literal notranslate"><span class="pre">Tuner.tune()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.tuner.Tuner._check_ga_params"><code class="docutils literal notranslate"><span class="pre">Tuner._check_ga_params()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.tuner.Tuner._check_m_parameters"><code class="docutils literal notranslate"><span class="pre">Tuner._check_m_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.tuner.Tuner._check_ga_hypertuner_parameters"><code class="docutils literal notranslate"><span class="pre">Tuner._check_ga_hypertuner_parameters()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-ga_hypertuner.ga">GA</a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA"><code class="docutils literal notranslate"><span class="pre">GA</span></code></a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA.score"><code class="docutils literal notranslate"><span class="pre">GA.score()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA.initiation"><code class="docutils literal notranslate"><span class="pre">GA.initiation()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA.mutation"><code class="docutils literal notranslate"><span class="pre">GA.mutation()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA.recombination"><code class="docutils literal notranslate"><span class="pre">GA.recombination()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA.stop"><code class="docutils literal notranslate"><span class="pre">GA.stop()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA.reporting"><code class="docutils literal notranslate"><span class="pre">GA.reporting()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.ga.GA.main"><code class="docutils literal notranslate"><span class="pre">GA.main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-ga_hypertuner.reporting">Reporting</a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.reporting.Reporting"><code class="docutils literal notranslate"><span class="pre">Reporting</span></code></a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.reporting.Reporting.progress"><code class="docutils literal notranslate"><span class="pre">Reporting.progress()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.reporting.Reporting.verbose1"><code class="docutils literal notranslate"><span class="pre">Reporting.verbose1()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.reporting.Reporting.verbose2"><code class="docutils literal notranslate"><span class="pre">Reporting.verbose2()</span></code></a></li>
+<li><a class="reference internal" href="#ga_hypertuner.reporting.Reporting.verbose3"><code class="docutils literal notranslate"><span class="pre">Reporting.verbose3()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-ga_hypertuner.visualization">Visualizing</a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.visualization.Visualize"><code class="docutils literal notranslate"><span class="pre">Visualize</span></code></a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.visualization.Visualize.progress_band"><code class="docutils literal notranslate"><span class="pre">Visualize.progress_band()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-ga_hypertuner.exceptions">Exceptions</a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.exceptions.GaParamsException"><code class="docutils literal notranslate"><span class="pre">GaParamsException</span></code></a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.exceptions.GaParamsException.PARAMETER_WRONG_TYPE"><code class="docutils literal notranslate"><span class="pre">GaParamsException.PARAMETER_WRONG_TYPE</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ga_hypertuner.exceptions.MParamsException"><code class="docutils literal notranslate"><span class="pre">MParamsException</span></code></a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.exceptions.MParamsException.PARAMETER_WRONG_FORMAT"><code class="docutils literal notranslate"><span class="pre">MParamsException.PARAMETER_WRONG_FORMAT</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ga_hypertuner.exceptions.GaHypertunerParamException"><code class="docutils literal notranslate"><span class="pre">GaHypertunerParamException</span></code></a><ul>
+<li><a class="reference internal" href="#ga_hypertuner.exceptions.GaHypertunerParamException.VERBOSITY_WARNING"><code class="docutils literal notranslate"><span class="pre">GaHypertunerParamException.VERBOSITY_WARNING</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GA Hypertuner</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Welcome to GA Hypertuner’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-ga-hypertuner-s-documentation">
+<h1>Welcome to GA Hypertuner’s documentation!<a class="headerlink" href="#welcome-to-ga-hypertuner-s-documentation" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="module-ga_hypertuner.tuner">
+<span id="tuner"></span><h1>Tuner<a class="headerlink" href="#module-ga_hypertuner.tuner" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ga_hypertuner.tuner.Tuner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ga_hypertuner.tuner.</span></span><span class="sig-name descname"><span class="pre">Tuner</span></span><a class="headerlink" href="#ga_hypertuner.tuner.Tuner" title="Permalink to this definition"></a></dt>
+<dd><p>Main class. user interacts with this class and given arguments are checked and passed to GA class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><p><strong>default_ga_parameters</strong> – a default dictionary for ga_parameters.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.tuner.Tuner.tune">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ga_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundaries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratified</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.tuner.Tuner.tune" title="Permalink to this definition"></a></dt>
+<dd><p>Main method to call to start tuning algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ga_parameters</strong> (<em>dict</em>) – Parameters of the genetic algorithm. For more information on the parameters, refer to end of parameters.</p></li>
+<li><p><strong>model</strong> – Model class that its hyperparameters are being optimized. Any model class that scikit cross-validate module can accept.</p></li>
+<li><p><strong>model_parameters</strong> (<em>dict</em>) – hyperparameters that are being optimized. This is a dictionary with parameters of the machine learning model as keys and a list either like [None, Parameter Type] (for optimization of parameter) or [Static Value, Parameter] (for passing the parameter as a static value that will not be changed).</p></li>
+<li><p><strong>boundaries</strong> (<em>dict</em>) – Boundary search for hyperparameters. This is a dictionary with parameters of the machine learning model as keys and a list like [start,end].</p></li>
+<li><p><strong>x_train</strong> (<em>Dataframe</em>) – Training features for the given model. This data will be used to train the model without slicing or sampling.</p></li>
+<li><p><strong>y_train</strong> (<em>Dataframe</em>) – Training target for the given model. This data will be used to train the model without slicing or sampling.</p></li>
+<li><p><strong>scoring</strong> (<em>str</em>) – The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.</p></li>
+<li><p><strong>stop_value</strong> (<em>int</em><em> or </em><em>float</em>) – The score that, when reached, the algorithm will stop. Default is None.</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Number of splits for k-fold cross validation. Accepted values are integers greater than 1. Default is 5.</p></li>
+<li><p><strong>stratified</strong> (<em>bool</em>) – Whether to use stratified cross validation or not. Default is False.</p></li>
+<li><p><strong>verbosity</strong> (<em>int</em>) – Determines the amount of information that is returned after each generation is generated. Accepted values are 0, 1, 2, or 3. Default is 1.</p></li>
+<li><p><strong>show_progress_plot</strong> (<em>bool</em>) – Whether the progress plot of the score for each generation should be shown at the end of each generation.</p></li>
+<li><p><strong>plot_step</strong> (<em>int</em>) – number of generations to skip before displaying progress plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">GA Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>direction</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): Determines whether the score of models should be maximized or minimized. Accepted values are [“max”,”min”].</p></li>
+<li><p><em>pop_size</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): Size of population in each generation. Increasing this value will reduce the chance of local optima. Accepted values are integers greater than 5. Default is 20.</p></li>
+<li><p><em>gmax</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): Maximum number of generations. After this many generations, the algorithm will stop and return the best params. Accepted values are integers greater than 1. Default is 50.</p></li>
+<li><p><em>fscale</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): A scaling factor that controls the amount of effect that differences between parameters of population members have. larger values will result in larger convergence rate. When convergence rate is higher, it will take less time for algorithm to reach local optimum, but the local optimum have lesser chance of being global. Reducing it will opposite result Accepted values are floats between 0 and 1. Default is 0.5.</p></li>
+<li><p><em>cp</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): The probability that a child will inherit a parameter from a parent instead of a trial vector. Accepted values are floats between 0 and 1. Default is 0.5.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary containing the best hyperparameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.tuner.Tuner._check_ga_params">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_check_ga_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ga_parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.tuner.Tuner._check_ga_params" title="Permalink to this definition"></a></dt>
+<dd><p>Checks ga_parameters.
+:param ga_parameters: Parameters of the genetic algorithm. For more information on the parameters.
+:type ga_parameters: dict
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.tuner.Tuner._check_m_parameters">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_check_m_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundaries</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.tuner.Tuner._check_m_parameters" title="Permalink to this definition"></a></dt>
+<dd><p>Checks model parameters.
+:param model_parameters: hyperparameters that are being optimized. This is a dictionary with parameters of the machine learning model as keys and a list either like [None, Parameter Type] (for optimization of parameter) or [Static Value, Parameter] (for passing the parameter as a static value that will not be changed).
+:type model_parameters: dict</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>boundaries</strong> (<em>dict</em>) – Boundary search for hyperparameters. This is a dictionary with parameters of the machine learning model as keys and a list like [start,end].</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.tuner.Tuner._check_ga_hypertuner_parameters">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_check_ga_hypertuner_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stop_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratified</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_plot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.tuner.Tuner._check_ga_hypertuner_parameters" title="Permalink to this definition"></a></dt>
+<dd><p>Check tuner parameters.
+:param stop_value: The score that, when reached, the algorithm will stop. Default is None.
+:type stop_value:Union[int, float]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>verbosity</strong> (<em>int</em>) – Determines the amount of information that is returned after each generation is generated. Accepted values are 0, 1, 2, or 3. Default is 1.</p></li>
+<li><p><strong>stratified</strong> (<em>bool</em>) – Whether to use stratified cross validation or not. Default is False.</p></li>
+<li><p><strong>show_progress_plot</strong> (<em>bool</em>) – Whether the progress plot of the score for each generation should be shown at the end of each generation.</p></li>
+<li><p><strong>plot_step</strong> (<em>int</em>) – number of generations to skip before displaying progress plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ga_hypertuner.ga">
+<span id="ga"></span><h1>GA<a class="headerlink" href="#module-ga_hypertuner.ga" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ga_hypertuner.ga.</span></span><span class="sig-name descname"><span class="pre">GA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ga_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundaries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratified</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA" title="Permalink to this definition"></a></dt>
+<dd><p>Genetic algorithm class. All calculations related to the algorithm are methods of this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ga_parameters</strong> (<em>dict</em>) – Parameters of the genetic algorithm. For more information on the parameters, see below.</p></li>
+<li><p><strong>model_class</strong> – Model class that its hyperparameters are being optimized. Any model class that scikit cross-validate module can accept.</p></li>
+<li><p><strong>model_parameters</strong> (<em>dict</em>) – hyperparameters that are being optimized. This is a dictionary with parameters of the machine learning model as keys and a list either like [None, Parameter Type] (for optimization of parameter) or [Static Value, Parameter] (for passing the parameter as a static value that will not be changed).</p></li>
+<li><p><strong>boundaries</strong> (<em>dict</em>) – Boundary search for hyperparameters. This is a dictionary with parameters of the machine learning model as keys and a list like [start,end].</p></li>
+<li><p><strong>x_train</strong> (<em>Dataframe</em>) – Training features for the given model. This data will be used to train the model without slicing or sampling.</p></li>
+<li><p><strong>y_train</strong> (<em>Dataframe</em>) – Training target for the given model. This data will be used to train the model without slicing or sampling.</p></li>
+<li><p><strong>scoring</strong> (<em>str</em>) – The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.</p></li>
+<li><p><strong>stop_criteria</strong> (<em>bool</em>) – Whether the algorithm should stop if it reaches a certain value or not.</p></li>
+<li><p><strong>stop_value</strong> – The score that, when reached, the algorithm will stop. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+<p>:type stop_value:Union[int, float]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – Number of splits for k-fold cross validation. Accepted values are integers greater than 1. Default is 5.</p></li>
+<li><p><strong>stratified</strong> (<em>bool</em>) – Whether to use stratified cross validation or not. Default is False.</p></li>
+<li><p><strong>verbosity</strong> (<em>int</em>) – Determines the amount of information that is returned after each generation is generated. Accepted values are 0, 1, 2, or 3. Default is 1.</p></li>
+<li><p><strong>show_progress_plot</strong> (<em>bool</em>) – Whether the progress plot of the score for each generation should be shown at the end of each generation.</p></li>
+<li><p><strong>plot_step</strong> (<em>int</em>) – number of generations to skip before displaying progress plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">GA Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><em>direction</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): Determines whether the score of models should be maximized or minimized. Accepted values are [“max”,”min”].</p></li>
+<li><p><em>pop_size</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): Size of population in each generation. Increasing this value will reduce the chance of local optima. Accepted values are integers greater than 5. Default is 20.</p></li>
+<li><p><em>gmax</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): Maximum number of generations. After this many generations, the algorithm will stop and return the best params. Accepted values are integers greater than 1. Default is 50.</p></li>
+<li><p><em>fscale</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): A scaling factor that controls the amount of effect that differences between parameters of population members have. larger values will result in larger convergence rate. When convergence rate is higher, it will take less time for algorithm to reach local optimum, but the local optimum have lesser chance of being global. Reducing it will opposite result Accepted values are floats between 0 and 1. Default is 0.5.</p></li>
+<li><p><em>cp</em> (<code class="docutils literal notranslate"><span class="pre">int</span></code>): The probability that a child will inherit a parameter from a parent instead of a trial vector. Accepted values are floats between 0 and 1. Default is 0.5.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.score" title="Permalink to this definition"></a></dt>
+<dd><p>calculates score of an individual. the score of an individual is its models mean score of cross validation.
+:param params: attributes of individual. (hyperparameters)
+:type params: dict
+:return: score of an individual</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA.initiation">
+<span class="sig-name descname"><span class="pre">initiation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.initiation" title="Permalink to this definition"></a></dt>
+<dd><p>Initializes the population vectors with random hyperparameters, and their respective scores.
+:return: A list of population vectors, where each vector is a dictionary containing the hyperparameters as “params” and their respective scores as “score”.
+:rtype: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA.mutation">
+<span class="sig-name descname"><span class="pre">mutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.mutation" title="Permalink to this definition"></a></dt>
+<dd><p>Performs mutation on the input list of vectors and returns the updated list of vectors.
+:param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
+:returns: A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after mutation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA.recombination">
+<span class="sig-name descname"><span class="pre">recombination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.recombination" title="Permalink to this definition"></a></dt>
+<dd><p>Recombine parent and trial individual to create child, then decides child or parent should be returned to population based on their score.
+:param parent: parent individual
+:param trial_params: trial individual
+:return A list of updated dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model) after recombination.:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.stop" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if max score is reached the specified stop_value
+:param scores: A NumpyArray of scores obtained for the individuals in the current generation.
+:type scores: NumpyArray
+:return: A bool determining whether of algorithm should stop or not</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA.reporting">
+<span class="sig-name descname"><span class="pre">reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Reports information about the optimization progress based on the specified verbosity level and options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> (<em>NumpyArray</em>) – A NumpyArray of scores obtained for the individuals in the current generation.</p></li>
+<li><p><strong>vectors</strong> (<em>list</em>) – A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.ga.GA.main">
+<span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.ga.GA.main" title="Permalink to this definition"></a></dt>
+<dd><p>The main function is the core of the differential evolution algorithm. It initializes the population and performs mutations in each generation, and returns the best parameter set found during the search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict containing best hyperparameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ga_hypertuner.reporting">
+<span id="reporting"></span><h1>Reporting<a class="headerlink" href="#module-ga_hypertuner.reporting" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ga_hypertuner.reporting.Reporting">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ga_hypertuner.reporting.</span></span><span class="sig-name descname"><span class="pre">Reporting</span></span><a class="headerlink" href="#ga_hypertuner.reporting.Reporting" title="Permalink to this definition"></a></dt>
+<dd><p>A class containing methods  for reporting progress of optimization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.reporting.Reporting.progress">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">progress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">done</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pop_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.reporting.Reporting.progress" title="Permalink to this definition"></a></dt>
+<dd><p>Displays the progress of the current generation.
+:param done: individuals gone through mutation.
+:type done: int</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pop_size</strong> (<em>int</em>) – total population size</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.reporting.Reporting.verbose1">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verbose1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">best_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.reporting.Reporting.verbose1" title="Permalink to this definition"></a></dt>
+<dd><p>Prints the maximum, minimum, and mean of the given scores along with the best parameters obtained so far during the optimization process.
+:param scores: A NumpyArray of scores obtained for the individuals in the current generation.
+:type scores: NumpyArray</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score_name</strong> (<em>str</em>) – The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.</p></li>
+<li><p><strong>best_params</strong> – a dictionary containing current hyperparameters corresponding to best score.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.reporting.Reporting.verbose2">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verbose2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vectors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.reporting.Reporting.verbose2" title="Permalink to this definition"></a></dt>
+<dd><p>This method takes in a list of individuals as input and prints a summary of the hyperparameters values of whole generation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vectors</strong> (<em>list</em>) – A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.reporting.Reporting.verbose3">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verbose3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vectors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.reporting.Reporting.verbose3" title="Permalink to this definition"></a></dt>
+<dd><p>This method takes in a list of individuals as input and prints value of hyperparameters and scores of all individuals in population.
+:param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
+:type vectors: list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>score_name</strong> (<em>str</em>) – The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ga_hypertuner.visualization">
+<span id="visualizing"></span><h1>Visualizing<a class="headerlink" href="#module-ga_hypertuner.visualization" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ga_hypertuner.visualization.Visualize">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ga_hypertuner.visualization.</span></span><span class="sig-name descname"><span class="pre">Visualize</span></span><a class="headerlink" href="#ga_hypertuner.visualization.Visualize" title="Permalink to this definition"></a></dt>
+<dd><p>A class containing methods for visualizing progress of optimization.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ga_hypertuner.visualization.Visualize.progress_band">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">progress_band</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">means</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.visualization.Visualize.progress_band" title="Permalink to this definition"></a></dt>
+<dd><p>The Visualize class contains a static method progress_band that generates a line chart of the progress of a score (maximum, minimum, and mean) by generation.
+:param maxs: a list of the maximum scores for each generation.
+:type maxs: list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mins</strong> (<em>list</em>) – a list of the minimum scores for each generation.</p></li>
+<li><p><strong>means</strong> (<em>list</em>) – a list of the mean scores for each generation.</p></li>
+<li><p><strong>score_name</strong> (<em>str</em>) – The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None, but displays a line chart of the score progress by generation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ga_hypertuner.exceptions">
+<span id="exceptions"></span><h1>Exceptions<a class="headerlink" href="#module-ga_hypertuner.exceptions" title="Permalink to this heading"></a></h1>
+<dl class="py exception">
+<dt class="sig sig-object py" id="ga_hypertuner.exceptions.GaParamsException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ga_hypertuner.exceptions.</span></span><span class="sig-name descname"><span class="pre">GaParamsException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">range_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.exceptions.GaParamsException" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="ga_hypertuner.exceptions.GaParamsException.PARAMETER_WRONG_TYPE">
+<span class="sig-name descname"><span class="pre">PARAMETER_WRONG_TYPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'</span> <span class="pre">:</span> <span class="pre">Wrong</span> <span class="pre">type,</span> <span class="pre">should</span> <span class="pre">be</span> <span class="pre">'</span></em><a class="headerlink" href="#ga_hypertuner.exceptions.GaParamsException.PARAMETER_WRONG_TYPE" title="Permalink to this definition"></a></dt>
+<dd><p>Exception raised for invalid GA parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>str</em>) – Explanation of the error.</p></li>
+<li><p><strong>parameter</strong> (<em>str</em>) – Name of the invalid parameter</p></li>
+<li><p><strong>range</strong> (<em>str</em>) – Range of valid values for the parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ga_hypertuner.exceptions.MParamsException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ga_hypertuner.exceptions.</span></span><span class="sig-name descname"><span class="pre">MParamsException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.exceptions.MParamsException" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="ga_hypertuner.exceptions.MParamsException.PARAMETER_WRONG_FORMAT">
+<span class="sig-name descname"><span class="pre">PARAMETER_WRONG_FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'</span> <span class="pre">:</span> <span class="pre">Wrong</span> <span class="pre">format,</span> <span class="pre">format</span> <span class="pre">of</span> <span class="pre">parameter</span> <span class="pre">should</span> <span class="pre">be</span> <span class="pre">either</span> <span class="pre">[None,Type]</span> <span class="pre">or</span> <span class="pre">a</span> <span class="pre">static</span> <span class="pre">value'</span></em><a class="headerlink" href="#ga_hypertuner.exceptions.MParamsException.PARAMETER_WRONG_FORMAT" title="Permalink to this definition"></a></dt>
+<dd><p>Exception raised for invalid Model parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>str</em>) – Explanation of the error.</p></li>
+<li><p><strong>parameter</strong> (<em>str</em>) – Name of the invalid parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ga_hypertuner.exceptions.GaHypertunerParamException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ga_hypertuner.exceptions.</span></span><span class="sig-name descname"><span class="pre">GaHypertunerParamException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ga_hypertuner.exceptions.GaHypertunerParamException" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="ga_hypertuner.exceptions.GaHypertunerParamException.VERBOSITY_WARNING">
+<span class="sig-name descname"><span class="pre">VERBOSITY_WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Invalid</span> <span class="pre">verbosity</span> <span class="pre">level</span> <span class="pre">provided.</span> <span class="pre">Using</span> <span class="pre">default</span> <span class="pre">value</span> <span class="pre">of</span> <span class="pre">1.'</span></em><a class="headerlink" href="#ga_hypertuner.exceptions.GaHypertunerParamException.VERBOSITY_WARNING" title="Permalink to this definition"></a></dt>
+<dd><p>Exception raised for invalid tuner parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>str</em>) – Explanation of the error.</p></li>
+<li><p><strong>parameter</strong> (<em>str</em>) – Name of the invalid parameter</p></li>
+<li><p><strong>type</strong> (<em>str</em>) – Type of valid values for the parameter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Amirali Omidvar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
