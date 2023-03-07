@@ -69,7 +69,7 @@ for more examples and info please refer to doc.
 
 ## Documentation
 
-you can find tron_explorer [doc here](https://tron-explorer.readthedocs.io/en/latest/).
+you can find tron_explorer [doc here](https://ga-hypertuner.readthedocs.io/en/latest/).
 
 ## Contributing
 
@@ -77,4 +77,4 @@ Any contribution is welcome. please open an issue to discuss changes or improvem
 
 ## License
 
-[MIT](https://github.com/AmiraliOmidvar/tron_explorer/blob/master/LICENCE.txt)
+[MIT](https://github.com/AmiraliOmidvar/ga_hypertuner/blob/master/LICENCE.txt)
