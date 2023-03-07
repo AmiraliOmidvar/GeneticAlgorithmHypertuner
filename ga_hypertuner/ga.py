@@ -8,7 +8,7 @@ import sys
 
 class GA:
     """
-    Main genetic algorithm class. All calculations related to the algorithm are methods of this class.
+    Genetic algorithm class. All calculations related to the algorithm are methods of this class.
 
     :param ga_parameters: Parameters of the genetic algorithm. For more information on the parameters, see below.
     :type ga_parameters: dict
@@ -23,7 +23,7 @@ class GA:
 
     :param model_class: Model class that its hyperparameters are being optimized. Any model class that scikit cross-validate module can accept.
 
-    :param model_parameters: Hyper-parameters that are being optimized. This is a dictionary with parameters of the machine learning model as keys and a list either like [None, Parameter Type] (for optimization of parameter) or [Static Value, Parameter] (for passing the parameter as a static value that will not be changed).
+    :param model_parameters: hyperparameters that are being optimized. This is a dictionary with parameters of the machine learning model as keys and a list either like [None, Parameter Type] (for optimization of parameter) or [Static Value, Parameter] (for passing the parameter as a static value that will not be changed).
     :type model_parameters: dict
 
     :param boundaries: Boundary search for hyperparameters. This is a dictionary with parameters of the machine learning model as keys and a list like [start,end].

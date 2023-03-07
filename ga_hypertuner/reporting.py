@@ -40,6 +40,12 @@ class Reporting:
 
     @staticmethod
     def verbose2(vectors):
+        """
+        This method takes in a list of individuals as input and prints a summary of the hyperparameters values of whole generation.
+        :param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
+        :type vectors: dict
+        :return: None
+        """
         vectors_no_score = [d["params"] for d in vectors]
         vectors = pd.DataFrame(vectors_no_score)
         print("-" * 50)
@@ -48,6 +54,16 @@ class Reporting:
 
     @staticmethod
     def verbose3(vectors, score_name):
+        """
+        This method takes in a list of individuals as input and prints value of hyperparameters and scores of all individuals in population.
+        :param vectors: A list of dictionaries containing the hyperparameters and corresponding scores of each individual in the population (score of model).
+        :type vectors: dict
+
+        :param score_name: The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.
+        :type score_name: str
+
+        :return: None
+        """
         vectors_no_score = [d["params"] for d in vectors]
         vectors_score = [d["score"] for d in vectors]
         score = pd.DataFrame(vectors_score)

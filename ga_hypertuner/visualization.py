@@ -4,6 +4,23 @@ import matplotlib.pyplot as plt
 class Visualize:
     @staticmethod
     def progress_band(maxs, mins, means, score_name):
+        """
+        The Visualize class contains a static method progress_band that generates a line chart of the progress of a score (maximum, minimum, and mean) by generation.
+        :param maxs: a list of the maximum scores for each generation.
+        :type maxs: list
+
+        :param mins: a list of the minimum scores for each generation.
+        :type mins: list
+
+        :param means: a list of the mean scores for each generation.
+        :type means: list
+
+        :param score_name: The scoring criteria that the algorithm tries to optimize. Accepted values are scores that scikit cross validation accepts.
+        :type score_name: str
+
+        :return: None, but displays a line chart of the score progress by generation.
+        """
+
         print("-" * 50)
         plt.figure(figsize=(8, 4))
         x = range(1, len(maxs) + 1)
