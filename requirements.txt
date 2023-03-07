@@ -1,7 +1,7 @@
 setuptools~=60.2.0
 sklearn~=0.0.post1
-scikit-learn~=1.0
-xgboost~=1.7.4
-numpy~=1.23.4
-pandas~=1.5.1
-matplotlib~=3.6.1
+scikit-learn>=1.0
+xgboost>=1.6.2
+numpy>=1.16.0
+pandas>=1.2.0
+matplotlib>=3.3.0
