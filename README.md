@@ -1,6 +1,6 @@
-# GA Hypertuner
+# Genetic Algorithm Hypertuner
 
-GA_HyperTuner is a Python package designed to help users fine-tune hyperparameters for their machine learning models using a genetic algorithm approach
+Genetic Algorithm HyperTuner is a Python package designed to help users fine-tune hyperparameters for their machine-learning models using a genetic algorithm approach. (differential evolution)
 
 ## Features
 Users can easily specify the hyperparameters they want to optimize, define the range and constraints for each hyperparameter, and set up the genetic algorithm parameters such as population size, combination probability, and mutation rates.
@@ -30,15 +30,15 @@ from xgboost import XGBRegressor as xgbr
 # loading data
 x_train, y_train = datasets.load_iris(return_X_y=True, as_frame=True)
 
-# creating model parameters, the solver and class_weight hyperparameters are static and won't change, the C parameter
-# is the parameter that algorithm tries to optimize
+# creating model parameters, the solver and class_weight hyperparameters are static and won't change the C parameter
+# is the parameter that the algorithm tries to optimize
 model_parameters = {"solver": "liblinear", "class_weight": "balanced", "C": [None, float]}
 
 # setting boundaries for parameter C
 boundaries = {"C": [0, 1]}
 
 # tuning the C parameter, the scoring criteria is accuracy.
-# stratified cross validation is set to true and number of folds of cross validation is set to 3.
+# stratified cross-validation is set to true and the number of folds of cross-validation is set to 3.
 best_params = Tuner.tune(x_train, y_train, lr, Tuner.default_ga_parameters, model_parameters
            , boundaries, 'accuracy', stratified=True, k=3, verbosity=1)
            
@@ -65,6 +65,40 @@ best_params = Tuner.tune(x_train, y_train, xgbr, ga_parameters, model_parameters
 ##########################################################################
 ##########################################################################    
 ```
+
+Output sample:
+```
+Max r2 : 0.4647872361252694 Min r2 : 0.4106477735163949 Mean r2 : 0.43554044453711327
+
+{'eta': 0.044987761443632285, 'min_child_weight': 3.2289184084919063, 'colsample_bytree': 0.30200366037496074, 'n_estimators': 100, 'alpha': 0.6094719857402888, 'gamma': 0.7681670166330536}
+--------------------------------------------------
+
+Param Values Summary
+             eta  min_child_weight  colsample_bytree  n_estimators      alpha  \
+count  15.000000         15.000000         15.000000          15.0  15.000000   
+mean    0.070673          3.262381          0.444616         100.0   0.777078   
+std     0.019617          1.275494          0.126947           0.0   0.234755   
+min     0.041235          0.927918          0.279023         100.0   0.353341   
+25%     0.053972          2.550634          0.329209         100.0   0.667062   
+50%     0.072370          3.228918          0.422560         100.0   0.823875   
+75%     0.082690          4.389026          0.541351         100.0   1.000000   
+max     0.109752          5.000000          0.639734         100.0   1.000000   
+
+           gamma  
+count  15.000000  
+mean    0.774367  
+std     0.174307  
+min     0.453010  
+25%     0.631866  
+50%     0.768167  
+75%     0.930546  
+max     1.000000  
+--------------------------------------------------
+```
+<p align="center">
+  <img src="https://github.com/AmiraliOmidvar/GeneticAlgorithmHypertuner/assets/118000089/d96e013e-b458-4331-b468-5205c5a57136" />
+</p>
+
 for more examples and info please refer to doc.
 
 ## Documentation
